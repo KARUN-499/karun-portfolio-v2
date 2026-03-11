@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cream: #F5F0E8;
+  --teal: #1B6B5A;
+  --teal-dark: #154f43;
+  --teal-light: #2a8a74;
+  --obsidian: #0D0D0D;
+  --gold: #C9A84C;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--obsidian);
+  font-family: 'Syne', sans-serif;
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-up.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.btn-primary {
+  @apply bg-teal text-cream px-8 py-3 font-sans font-medium tracking-wide hover:bg-teal-dark transition-colors duration-200;
+}
+
+.btn-outline {
+  @apply border border-obsidian text-obsidian px-8 py-3 font-sans font-medium tracking-wide hover:bg-obsidian hover:text-cream transition-colors duration-200;
+}
+
+.section {
+  @apply max-w-7xl mx-auto px-6 py-20;
+}
+
+.card {
+  @apply bg-white border border-gray-100 p-8 hover:shadow-lg transition-shadow duration-300;
+}
