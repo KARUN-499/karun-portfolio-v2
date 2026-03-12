@@ -9,7 +9,7 @@ export default function About() {
             <p className="font-sans text-xs tracking-widest text-[#1B6B5A] uppercase mb-4">About</p>
             <h2 className="font-sans text-5xl font-bold text-white mb-8">Building Digital <em className="italic font-light">Excellence</em></h2>
             <p className="font-sans text-gray-400 leading-relaxed mb-6">
-              I&apos;m Karun, a multi-sector freelancer and project manager with 8+ years of experience. I specialize in creating digital experiences that drive real business results.
+              I&apos;m Karun, a multi-sector freelancer and project manager with 3+ years of experience. I specialize in creating digital experiences that drive real business results.
             </p>
             <p className="font-sans text-gray-400 leading-relaxed mb-10">
               From stunning websites to powerful marketing campaigns, I combine technical expertise with strategic thinking to deliver outcomes that exceed expectations.
@@ -22,9 +22,9 @@ export default function About() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             {[
-              { label: 'Projects Completed', value: '120+' },
-              { label: 'Happy Clients', value: '85+' },
-              { label: 'Years Experience', value: '8+' },
+              { label: 'Projects Completed', value: '30+' },
+              { label: 'Happy Clients', value: '25+' },
+              { label: 'Years Experience', value: '3+' },
               { label: 'Client Satisfaction', value: '98%' },
             ].map(stat => (
               <div key={stat.label} className="border border-white/10 bg-[#0A0A0A] p-8 text-center hover:border-[#1B6B5A]/50 transition-colors">
