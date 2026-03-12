@@ -4,22 +4,20 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { allProjects, categoryColors } from '@/lib/projects';
 
-type Props = { params: Promise<{ slug: string }> };
+type Props = { params: { slug: string } };
 
 export function generateStaticParams() {
   return allProjects.map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({ params }: Props) {
-  const { slug } = await params;
-  const project = allProjects.find((p) => p.slug === slug);
+export function generateMetadata({ params }: Props) {
+  const project = allProjects.find((p) => p.slug === params.slug);
   if (!project) return { title: 'Not Found' };
   return { title: `${project.title} | Karun Portfolio` };
 }
 
-export default async function ProjectPage({ params }: Props) {
-  const { slug } = await params;
-  const project = allProjects.find((p) => p.slug === slug);
+export default function ProjectPage({ params }: Props) {
+  const project = allProjects.find((p) => p.slug === params.slug);
   if (!project) return notFound();
 
   const color = (categoryColors as Record<string, string>)[project.category] ?? '#C9A84C';
