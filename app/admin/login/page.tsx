@@ -13,13 +13,25 @@ export default function AdminLoginPage() {
     e.preventDefault()
     setLoading(true)
     setError('')
-    // Simple password check - store in env var ADMIN_PASSWORD
-    if (password === (process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'admin123')) {
-      localStorage.setItem('admin_auth', 'true')
-      router.push('/admin')
-    } else {
-      setError('Invalid password. Please try again.')
+
+    try {
+      const res = await fetch('/api/admin/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      })
+
+      if (res.ok) {
+        router.push('/admin')
+        router.refresh()
+      } else {
+        const data = await res.json()
+        setError(data.error || 'Invalid password. Please try again.')
+      }
+    } catch {
+      setError('Something went wrong. Please try again.')
     }
+
     setLoading(false)
   }
 
@@ -31,7 +43,6 @@ export default function AdminLoginPage() {
           <h1 className="text-3xl font-sans font-bold text-white">Portfolio <span className="text-[#1B6B5A]">Admin</span></h1>
           <p className="text-gray-400 font-sans mt-2 text-sm">Enter your password to access the dashboard</p>
         </div>
-
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
             <label className="font-mono text-xs tracking-widest text-gray-400 uppercase block mb-2">Password</label>
@@ -53,7 +64,6 @@ export default function AdminLoginPage() {
             {loading ? 'Signing in...' : 'Sign In →'}
           </button>
         </form>
-
         <p className="text-center mt-8">
           <a href="/" className="font-mono text-xs text-gray-500 hover:text-[#1B6B5A] transition-colors">← Back to Portfolio</a>
         </p>
