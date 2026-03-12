@@ -1,26 +1,39 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
+  const [checking, setChecking] = useState(true)
 
   useEffect(() => {
-    if (pathname !== '/admin/login') {
-      const isAuth = localStorage.getItem('admin_auth')
-      if (!isAuth) router.push('/admin/login')
+    if (pathname === '/admin/login') {
+      setChecking(false)
+      return
     }
+    // Check auth via API (cookie-based)
+    fetch('/api/admin/auth/check')
+      .then(r => {
+        if (!r.ok) router.push('/admin/login')
+        else setChecking(false)
+      })
+      .catch(() => router.push('/admin/login'))
   }, [pathname, router])
 
-  const handleLogout = () => {
-    localStorage.removeItem('admin_auth')
+  const handleLogout = async () => {
+    await fetch('/api/admin/auth', { method: 'DELETE' })
     router.push('/admin/login')
   }
 
   if (pathname === '/admin/login') return <>{children}</>
+  if (checking) return (
+    <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center">
+      <p className="font-mono text-sm text-gray-500">Loading...</p>
+    </div>
+  )
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] flex">
@@ -35,33 +48,30 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             className={`flex items-center gap-3 px-4 py-3 font-sans text-sm transition-colors ${
               pathname === '/admin' ? 'bg-[#1B6B5A] text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'
             }`}>
-            <span>📊</span> Dashboard
+            Dashboard
           </Link>
           <Link href="/admin/bookings"
             className={`flex items-center gap-3 px-4 py-3 font-sans text-sm transition-colors ${
               pathname === '/admin/bookings' ? 'bg-[#1B6B5A] text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'
             }`}>
-            <span>📅</span> Bookings
+            Bookings
           </Link>
           <Link href="/admin/portfolio"
             className={`flex items-center gap-3 px-4 py-3 font-sans text-sm transition-colors ${
               pathname === '/admin/portfolio' ? 'bg-[#1B6B5A] text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'
             }`}>
-            <span>🎨</span> Portfolio
+            Portfolio
           </Link>
         </nav>
         <div className="p-4 border-t border-white/10">
-          <button onClick={handleLogout}
-            className="w-full px-4 py-2 font-mono text-xs text-gray-400 hover:text-red-400 transition-colors text-left">
-            → Logout
-          </button>
-          <Link href="/" className="block px-4 py-2 font-mono text-xs text-gray-500 hover:text-[#1B6B5A] transition-colors">
-            → View Site
+          <Link href="/" className="flex items-center gap-3 px-4 py-3 font-sans text-sm text-gray-400 hover:text-white transition-colors">
+            &larr; View Site
           </Link>
+          <button onClick={handleLogout} className="w-full text-left flex items-center gap-3 px-4 py-3 font-sans text-sm text-red-400 hover:text-red-300 transition-colors">
+            Logout
+          </button>
         </div>
       </aside>
-
-      {/* Main content */}
       <main className="flex-1 overflow-auto">
         {children}
       </main>
