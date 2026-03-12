@@ -33,11 +33,11 @@ export default function Hero() {
             {/* Stats */}
             <div className="flex gap-12 mt-16">
               <div>
-                <div className="text-4xl font-bold text-white">120+</div>
+                <div className="text-4xl font-bold text-white">30+</div>
                 <div className="text-xs text-gray-500 uppercase tracking-widest mt-1">Projects Delivered</div>
               </div>
               <div>
-                <div className="text-4xl font-bold text-white">8yr</div>
+                <div className="text-4xl font-bold text-white">3yr</div>
                 <div className="text-xs text-gray-500 uppercase tracking-widest mt-1">Experience</div>
               </div>
               <div>
@@ -53,7 +53,7 @@ export default function Hero() {
                 FREELANCER &amp;<br />PROJECT MANAGER /
               </div>
               <div className="font-serif text-6xl font-normal text-white mb-4">Karun</div>
-              <div className="text-xs text-gray-400 uppercase tracking-widest">8+ YEARS</div>
+              <div className="text-xs text-gray-400 uppercase tracking-widest">3+ YEARS</div>
             </div>
           </div>
         </div>
