@@ -1,29 +1,24 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
+// In-memory store (resets on deploy - connect Supabase for persistence)
+let portfolioItems: any[] = []
+let nextId = 1
 
 export async function GET() {
-  const { data: items, error } = await supabase
-    .from('portfolio_items')
-    .select('*')
-    .order('created_at', { ascending: false })
-
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-  return NextResponse.json({ items })
+  return NextResponse.json({ items: portfolioItems })
 }
 
 export async function POST(request: Request) {
-  const body = await request.json()
-  const { data, error } = await supabase
-    .from('portfolio_items')
-    .insert([body])
-    .select()
-    .single()
-
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-  return NextResponse.json({ item: data }, { status: 201 })
+  try {
+    const body = await request.json()
+    const item = {
+      ...body,
+      id: String(nextId++),
+      created_at: new Date().toISOString(),
+    }
+    portfolioItems = [item, ...portfolioItems]
+    return NextResponse.json({ item }, { status: 201 })
+  } catch {
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
+  }
 }
