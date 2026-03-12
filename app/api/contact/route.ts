@@ -1,29 +1,31 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { prisma } from '@/lib/prisma';
+import { ContactSchema } from '@/lib/validations';
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, subject, message } = body;
+    const validated = ContactSchema.safeParse(body);
 
-    if (!name || !email || !message) {
-      return NextResponse.json({ error: 'Name, email, and message are required' }, { status: 400 });
+    if (!validated.success) {
+      return NextResponse.json(
+        { error: validated.error.flatten().fieldErrors },
+        { status: 400 }
+      );
     }
 
-    const { data, error } = await supabase
-      .from('contact_messages')
-      .insert([{ name, email, subject: subject || null, message }])
-      .select()
-      .single();
+    const { name, email, subject, message } = validated.data;
 
-    if (error) throw error;
+    const contact = await prisma.contactMessage.create({
+      data: {
+        name,
+        email,
+        subject: subject || null,
+        message,
+      },
+    });
 
-    return NextResponse.json({ success: true, message: data }, { status: 201 });
+    return NextResponse.json({ success: true, message: contact }, { status: 201 });
   } catch (error) {
     console.error('Contact error:', error);
     return NextResponse.json({ error: 'Failed to send message' }, { status: 500 });
