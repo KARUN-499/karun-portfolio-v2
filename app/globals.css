@@ -3,11 +3,15 @@
 @tailwind utilities;
 
 :root {
-  --cream: #F5F0E8;
+  --black: #0A0A0A;
+  --dark: #111111;
+  --card: #1a1a1a;
+  --border: rgba(255,255,255,0.1);
   --teal: #1B6B5A;
   --teal-dark: #154f43;
   --teal-light: #2a8a74;
-  --obsidian: #0D0D0D;
+  --white: #ffffff;
+  --gray: #9ca3af;
   --gold: #C9A84C;
 }
 
@@ -22,8 +26,8 @@ html {
 }
 
 body {
-  background-color: var(--cream);
-  color: var(--obsidian);
+  background-color: var(--black);
+  color: var(--white);
   font-family: 'Syne', sans-serif;
 }
 
@@ -50,11 +54,11 @@ body {
 }
 
 .btn-primary {
-  @apply bg-teal text-cream px-8 py-3 font-sans font-medium tracking-wide hover:bg-teal-dark transition-colors duration-200;
+  @apply bg-[#1B6B5A] text-white px-8 py-3 font-sans font-medium tracking-wide hover:bg-[#154f43] transition-colors duration-200;
 }
 
 .btn-outline {
-  @apply border border-obsidian text-obsidian px-8 py-3 font-sans font-medium tracking-wide hover:bg-obsidian hover:text-cream transition-colors duration-200;
+  @apply border border-white/30 text-white px-8 py-3 font-sans font-medium tracking-wide hover:bg-white hover:text-black transition-colors duration-200;
 }
 
 .section {
@@ -62,5 +66,5 @@ body {
 }
 
 .card {
-  @apply bg-white border border-gray-100 p-8 hover:shadow-lg transition-shadow duration-300;
+  @apply bg-[#1a1a1a] border border-white/10 p-8 hover:border-[#1B6B5A]/50 transition-all duration-300;
 }
