@@ -1,4 +1,5 @@
 import NextAuth from 'next-auth'
+// Auth.js v5 - JWT strategy only, no database adapter needed
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 import GitHubProvider from 'next-auth/providers/github'
