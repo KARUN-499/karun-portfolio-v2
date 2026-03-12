@@ -25,7 +25,7 @@ export default function ContactSection() {
               </div>
               <div className="flex items-center gap-4">
                 <span className="text-[#1B6B5A]">&#128205;</span>
-                <span className="font-sans text-gray-300">Punjab, India</span>
+                <span className="font-sans text-gray-300">Samalkha, Panipat. Haryana, India</span>
               </div>
             </div>
           </div>
