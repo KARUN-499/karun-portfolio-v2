@@ -3,22 +3,22 @@
 @tailwind utilities;
 
 :root {
-  --black: #0A0A0A;
-  --dark: #111111;
-  --card: #1a1a1a;
-  --border: rgba(255,255,255,0.1);
-  --teal: #1B6B5A;
-  --teal-dark: #154f43;
-  --teal-light: #2a8a74;
+  --black: #000000;
+  --dark: #0a0a0a;
+  --card: #111111;
+  --border: rgba(255,255,255,0.08);
+  --gold: #C9A84C;
+  --gold-light: #D4B56A;
   --white: #ffffff;
   --gray: #9ca3af;
-  --gold: #C9A84C;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
 }
 
 * {
   box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 html {
@@ -26,45 +26,43 @@ html {
 }
 
 body {
-  background-color: var(--black);
-  color: var(--white);
-  font-family: 'Syne', sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.fade-up {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: #C9A84C;
+  border-radius: 3px;
 }
 
-.fade-up.in-view {
-  opacity: 1;
-  transform: translateY(0);
+/* Selection */
+::selection {
+  background-color: rgba(201, 168, 76, 0.3);
+  color: #fff;
 }
 
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee 30s linear infinite;
+/* Smooth transitions */
+a, button {
+  transition: all 0.2s ease;
 }
 
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+/* Gold accent utility */
+.text-gold {
+  color: #C9A84C;
 }
-
-.btn-primary {
-  @apply bg-[#1B6B5A] text-white px-8 py-3 font-sans font-medium tracking-wide hover:bg-[#154f43] transition-colors duration-200;
+.bg-gold {
+  background-color: #C9A84C;
 }
-
-.btn-outline {
-  @apply border border-white/30 text-white px-8 py-3 font-sans font-medium tracking-wide hover:bg-white hover:text-black transition-colors duration-200;
-}
-
-.section {
-  @apply max-w-7xl mx-auto px-6 py-20;
-}
-
-.card {
-  @apply bg-[#1a1a1a] border border-white/10 p-8 hover:border-[#1B6B5A]/50 transition-all duration-300;
+.border-gold {
+  border-color: #C9A84C;
 }
