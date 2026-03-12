@@ -1,22 +1,7 @@
 import Link from 'next/link';
+import { allProjects, categoryColors } from '@/lib/projects';
 
-const projects = [
-  { id: '01', title: 'E-Commerce Platform', category: 'Web Development', tech: ['Next.js', 'Stripe', 'Supabase'] },
-  { id: '02', title: 'Brand Identity System', category: 'Brand Design', tech: ['Figma', 'Illustrator'] },
-  { id: '03', title: 'SaaS Dashboard', category: 'UI/UX Design', tech: ['React', 'TypeScript', 'Tailwind'] },
-  { id: '04', title: 'Marketing Campaign', category: 'Digital Marketing', tech: ['Meta Ads', 'Google Ads', 'Analytics'] },
-  { id: '05', title: 'Mobile App Design', category: 'App Design', tech: ['Figma', 'Prototyping'] },
-  { id: '06', title: 'Corporate Website', category: 'Web Development', tech: ['Next.js', 'CMS', 'SEO'] },
-];
-
-const categoryColors: Record<string, string> = {
-  'Web Development': '#C9A84C',
-  'Brand Design': '#8B5CF6',
-  'UI/UX Design': '#06B6D4',
-  'Digital Marketing': '#10B981',
-  'App Design': '#F59E0B',
-  'Full Stack': '#EF4444',
-};
+const projects = allProjects.slice(0, 6);
 
 export default function Portfolio() {
   return (
@@ -38,13 +23,13 @@ export default function Portfolio() {
             View All &rarr;
           </Link>
         </div>
-
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-px" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
-          {projects.map((project, index) => (
-            <div
+          {projects.map((project) => (
+            <Link
               key={project.id}
-              className="group bg-black p-8 hover:bg-[#0a0a0a] transition-all duration-300"
+              href={`/portfolio/${project.slug}`}
+              className="group block bg-black p-8 hover:bg-[#0a0a0a] transition-all duration-300"
             >
               <div className="flex items-start justify-between mb-6">
                 <span
@@ -64,23 +49,21 @@ export default function Portfolio() {
                 {project.title}
               </h3>
               <div className="flex flex-wrap gap-2 mb-6">
-                {project.tech.map((t) => (
+                {project.tech.slice(0, 3).map((t) => (
                   <span key={t} className="text-xs px-2 py-1 text-gray-500 border border-white/8">
                     {t}
                   </span>
                 ))}
               </div>
-              <Link
-                href="/portfolio"
+              <span
                 className="text-xs font-medium transition-colors hover:opacity-70"
-                style={{ color: '#C9A84C' }}
+                style={{ color: categoryColors[project.category] || '#C9A84C' }}
               >
-                View Category &rarr;
-              </Link>
-            </div>
+                View Details &rarr;
+              </span>
+            </Link>
           ))}
         </div>
-
         {/* Mobile View All */}
         <div className="mt-10 text-center md:hidden">
           <Link
