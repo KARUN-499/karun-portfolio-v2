@@ -30,7 +30,7 @@ export default function PortfolioPage() {
               All <span className="italic">Projects</span>
             </h1>
             <p className="text-gray-400 mt-4 max-w-xl">
-              Browse {allProjects.length}+ projects across web development, design, marketing, and more.
+              Browse {allProjects.length}+ projects. Click any project to see full details.
             </p>
           </div>
           <div className="text-right">
@@ -42,7 +42,7 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* Category Filter */}
+      {/* Category Filters */}
       <section className="px-6 max-w-7xl mx-auto mb-12">
         <div className="flex flex-wrap gap-3">
           {categories.map((cat) => (
@@ -99,17 +99,21 @@ export default function PortfolioPage() {
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-serif text-xl font-normal text-white mb-3 group-hover:opacity-80 transition-opacity">
+                  <h3 className="font-serif text-xl font-normal text-white mb-3 group-hover:text-gray-100 transition-colors">
                     {project.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-gray-500 text-sm leading-relaxed mb-5">{project.description}</p>
+                  <p className="text-gray-500 text-sm leading-relaxed mb-5">
+                    {project.description}
+                  </p>
 
                   {/* Tech tags */}
                   <div className="flex flex-wrap gap-2 mb-5">
                     {project.tech.slice(0, 3).map((t) => (
-                      <span key={t} className="text-xs px-2 py-1 border border-white/8 text-gray-400">{t}</span>
+                      <span key={t} className="text-xs px-2 py-1 border border-white/8 text-gray-400">
+                        {t}
+                      </span>
                     ))}
                     {project.tech.length > 3 && (
                       <span className="text-xs px-2 py-1 text-gray-600">+{project.tech.length - 3}</span>
@@ -118,8 +122,8 @@ export default function PortfolioPage() {
 
                   {/* Footer */}
                   <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                    <span className="text-xs text-gray-600 uppercase tracking-wide">{project.status}</span>
-                    <span className="text-xs font-medium group-hover:opacity-70 transition-opacity" style={{ color }}>
+                    <span className="text-xs text-gray-600 uppercase tracking-wide">{project.duration}</span>
+                    <span className="text-xs font-medium group-hover:opacity-80 transition-opacity" style={{ color }}>
                       View Details &rarr;
                     </span>
                   </div>
@@ -134,9 +138,9 @@ export default function PortfolioPage() {
       <section className="px-6 max-w-7xl mx-auto pb-24 text-center">
         <div className="border border-white/8 p-12" style={{ backgroundColor: '#0a0a0a' }}>
           <p className="text-xs uppercase tracking-widest mb-4" style={{ color: '#C9A84C' }}>START A PROJECT</p>
-          <h2 className="font-serif text-4xl font-normal text-white mb-4">Have a project in mind?</h2>
-          <p className="text-gray-400 mb-8 max-w-lg mx-auto text-sm">
-            Let&apos;s work together to bring your vision to life.
+          <h2 className="font-serif text-4xl font-normal text-white mb-4">Have a similar project in mind?</h2>
+          <p className="text-gray-400 mb-8 max-w-lg mx-auto">
+            Let&apos;s work together to deliver high-quality results on time.
           </p>
           <Link
             href="/booking"
