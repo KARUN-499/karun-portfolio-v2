@@ -1,12 +1,13 @@
+const items = ['Web Development', 'Brand Design', 'Digital Strategy', 'Project Management', 'UI/UX Design', 'SEO Optimization', 'E-commerce', 'Marketing'];
+
 export default function MarqueeBanner() {
-  const skills = ['Web Design', 'Project Management', 'Branding', 'E-Commerce', 'SEO', 'Strategy', 'Leadership', 'Operations'];
-  const doubled = [...skills, ...skills];
+  const doubled = [...items, ...items];
   return (
     <div className="bg-[#1B6B5A] py-4 overflow-hidden">
       <div className="marquee-track">
-        {doubled.map((s, i) => (
-          <span key={i} className="font-mono text-xs tracking-widest text-[#F5F0E8] uppercase mx-8 whitespace-nowrap">
-            {s} <span className="text-[#C9A84C] mx-4">/</span>
+        {doubled.map((item, i) => (
+          <span key={i} className="font-sans text-sm font-medium text-white tracking-widest uppercase px-8 whitespace-nowrap">
+            {item} <span className="text-white/40 mx-4">&#8212;</span>
           </span>
         ))}
       </div>
